@@ -1,4 +1,62 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Employee List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id #</th>
+          <th>Firstname
+            <input type="text" [(ngModel)]="searchTxt" name="searchTxt"  (input)="search('firstName')" />
+          </th>
+          <th>Lastname</th>
+          <th>Email</th>
+          <th>Gender
+            <input type="checkbox" [(ngModel)]="searchGenderM" name="searchGenderM" value="Male" (change)="filterBasedOnGender()" />Male
+            <input type="checkbox" [(ngModel)]="searchGenderF" name="searchGenderF" value="Female"(change)="filterBasedOnGender()" />Female
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.getId()}}</td>
+          <td>{{employee.getFirstName()}}</td>
+          <td>{{employee.getLastName()}}</td>
+          <td>{{employee.getEmailId()}}</td>
+          <td>{{employee.getGender()}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h3>Create Employee</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form>
+    <div class="form-group">
+      <label for="name">Frist Name</label>
+      <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.firstName" name="lastName">
+    </div>
+    <div class="form-group">
+      <label for="name">Last Name</label>
+      <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName" name="lastName">
+    </div>
+    <div class="form-group">
+      <label for="name">Email</label>
+      <input type="text" class="form-control" id="emailId" required [(ngModel)]="employee.emailId" name="emailId">
+    </div>
+    <div class="form-group">
+      <label for="name">Gender</label>
+      <input type="radio" class="form-control" id="genderMale" [(ngModel)]="employee.gender" name="gender" value="Male"> male
+      <input type="radio" class="form-control" id="genderMale" [(ngModel)]="employee.gender" name="gender" value="Female"> female
+    </div>
+
+
+    <button type="submit" class="btn btn-success" (click)="saveEmployee()">Submit</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+</div>
